@@ -202,6 +202,11 @@ class Loader(BaseLoader):
     def __init__(self):
         super(Loader, self).__init__()
         include_pattern = getattr(settings, 'JINGO_INCLUDE_PATTERN', None)
+        
+
+        self.default_extn = getattr(settings, 'DEFAULT_JINJA2_TEMPLATE_EXTENSION', '.jinja')
+        
+
         if include_pattern:
             self.include_re = re.compile(include_pattern)
         else:
@@ -220,6 +225,9 @@ class Loader(BaseLoader):
         return True
 
     def load_template(self, template_name, template_dirs=None):
+
+        template_name += self.default_extn
+
         if not self._valid_template(template_name):
             raise TemplateDoesNotExist(template_name)
 
