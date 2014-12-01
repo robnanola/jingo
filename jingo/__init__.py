@@ -223,7 +223,7 @@ class Loader(BaseLoader):
                 return False
 
         if not template_name.endswith(self.default_extn):
-            raise False
+            return False
 
         return True
 
