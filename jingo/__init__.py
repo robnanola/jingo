@@ -222,11 +222,12 @@ class Loader(BaseLoader):
             if app in getattr(settings, 'JINGO_EXCLUDE_APPS', EXCLUDE_APPS):
                 return False
 
+        if not template_name.endswith(self.default_extn):
+            raise False
+
         return True
 
     def load_template(self, template_name, template_dirs=None):
-
-        template_name += self.default_extn
 
         if not self._valid_template(template_name):
             raise TemplateDoesNotExist(template_name)
